@@ -4,17 +4,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CompanyRepository extends JpaRepository<Company, Integer> {
 	
+	/*
 	//public boolean isCompanyExists(String email, String password);
-	
-	boolean existsByEmailAndPassword(String email, String password);
-	
+	//boolean existsByEmailAndPassword(String email, String password);
 	//public void addCompany(Company company);
 	//we will use save
-	
 	//public void updateCompany(Company company);
-	// we will use save for upadte
-	
-	
+	// we will use save for upadte	
 	/*public void deleteCompany(int companyID);
 	public ArrayList<Company> getAllCompanies();
 	public Company getOneCompany(int companyID);

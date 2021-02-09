@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 
@@ -23,17 +24,14 @@ public class Company {
 		
 		public void setID(int m_id) { this.m_id = m_id;}
 		
-		@Column(name="NAME")
 		public String getName() { return m_name;}
 		
 		public void setName(String m_name) { this.m_name = m_name;}
 		
-		@Column(name="EMAIL")
 		public String getEmail() { return m_email;}
 		
 		public void setEmail(String m_email) { this.m_email = m_email;}
 		
-		@Column(name="PASSWORD")
 		public String getPassword() { return m_password;}
 		
 		public void setPassword(String m_password) { this.m_password = m_password;}
@@ -66,11 +64,15 @@ public class Company {
 		@Id
 		@GeneratedValue(strategy=GenerationType.IDENTITY) // AI
 		@Column(name="ID")
-		@OneToMany(mappedBy="COMPANY_ID", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+		//@OneToMany(mappedBy="COMPANY_ID", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 		int m_id;
+		@Column(name="NAME")
 		String m_name;
+		@Column(name="EMAIL")
 		String m_email;
+		@Column(name="PASSWORD")
 		String m_password;
+		@Transient
 		ArrayList<Coupon> m_coupons;
 		
 }
