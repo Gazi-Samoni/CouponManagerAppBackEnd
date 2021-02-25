@@ -8,87 +8,90 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="COUPONS")
 public class Coupon {
+	
 	public int getID() {
-		return m_id;
+		return id;
 	}
 
 	public void setID(int id) {
-		this.m_id = id;
+		this.id = id;
 	}
 
 	public int getCompanyID() {
-		return m_companyID;
+		return companyId;
 	}
 
 	public void setCompanyID(int companyID) {
-		this.m_companyID = companyID;
+		this.companyId = companyID;
 	}
 
 	public Category getCategory() {
-		return m_category;
+		return category;
 	}
 
 	public void setCategory(Category category) {
-		this.m_category = category;
+		this.category = category;
 	}
 
 	public String getTitle() {
-		return m_title;
+		return title;
 	}
 
 	public void setTitle(String title) {
-		this.m_title = title;
+		this.title = title;
 	}
 
 	public String getDescription() {
-		return m_description;
+		return description;
 	}
 
 	public void setDescription(String description) {
-		this.m_description = description;
+		this.description = description;
 	}
 
 	public Date getStartDate() {
-		return m_startDate;
+		return startDate;
 	}
 
 	public void setStartDate(Date startDate) {
-		this.m_startDate = startDate;
+		this.startDate = startDate;
 	}
 
 	public Date getEndDate() {
-		return m_endDate;
+		return endDate;
 	}
 
 	public void setEndDate(Date endDate) {
-		this.m_endDate = endDate;
+		this.endDate = endDate;
 	}
 
 	public int getAmount() {
-		return m_amount;
+		return amount;
 	}
 
 	public void setAmount(int amount) {
-		this.m_amount = amount;
+		this.amount = amount;
 	}
 
 	public double getPrice() {
-		return m_price;
+		return price;
 	}
 
 	public void setPrice(double price) {
-		this.m_price = price;
+		this.price = price;
 	}
 
 	public String getImage() {
-		return m_image;
+		return image;
 	}
 
 	public void setImage(String image) {
-		this.m_image = image;
+		this.image = image;
 	}
 
 	public Coupon() {
@@ -97,46 +100,59 @@ public class Coupon {
 	}
 	
 	public Coupon(int id, int companyID, Category category, String title, String descprition, Date startDate, Date endDate, int amount, double price, String image) {
-		this.m_id = id;
-		this.m_companyID = companyID;
-		this.m_category = category;
-		this.m_title = title;
-		this.m_description = descprition;
-		this.m_startDate = startDate;
-		this.m_endDate = endDate;
-		this.m_amount = amount;
-		this.m_price = price;
-		this.m_image = image;
+		this.id = id;
+		this.companyId = companyID;
+		this.category = category;
+		this.title = title;
+		this.description = descprition;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.amount = amount;
+		this.price = price;
+		this.image = image;
+	}
+	
+	public Coupon( int companyID, Category category, String title, String descprition, Date startDate, Date endDate, int amount, double price, String image) {
+		this.companyId = companyID;
+		this.category = category;
+		this.title = title;
+		this.description = descprition;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.amount = amount;
+		this.price = price;
+		this.image = image;
 	}
 	
 	
 	@Override
 	public String toString() {
-		return "Coupon [id=" + m_id + ", companyID=" + m_companyID + ", category=" + m_category + ", title=" + m_title
-				+ ", description=" + m_description + ", amount=" + m_amount + ", price=" + m_price + ", image=" + m_image + "]";
+		return "Coupon [id=" + id + ", companyID=" + companyId + ", category=" + category + ", title=" + title
+				+ ", description=" + description + ", amount=" + amount + ", price=" + price + ", image=" + image + "]";
 	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ID")
-	int m_id;
-	@Column(name="COMPANY_ID")
-	int m_companyID;
+	@Column(name="Id")
+	int id;
+	@Column(name="ComapnyId")
+	int companyId;
 	@Enumerated(EnumType.STRING)
-	@Column(name="CATEGORY_ID")
-	Category m_category;
+	@Column(name="CategoryId")
+	Category category;
 	@Column(name="TITLE")
-	String m_title;
-	@Column(name="DESCRIPTION")
-	String m_description;
-	@Column(name="START_DATE")
-	Date m_startDate;
-	@Column(name="END_DATE")
-	Date m_endDate;
-	@Column(name="AMOUNT")
-	int m_amount;
-	@Column(name="PRICE")
-	double m_price;
-	@Column(name="IMAGE")
-	String m_image;
+	String title;
+	@Column(name="Description")
+	String description;
+	@Column(name="StartDate")
+	Date startDate;
+	@Column(name="EndDate")
+	Date endDate;
+	@Column(name="Amount")
+	int amount;
+	@Column(name="Price")
+	double price;
+	@Column(name="Image")
+	String image;
+	
 }

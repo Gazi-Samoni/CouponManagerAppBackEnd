@@ -7,46 +7,48 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
+@Table(name="CUSTOMERS")
 public class Customer {
 	
 	public int getId() {
-		return m_id;
+		return id;
 	}
 	public void setId(int id) {
-		this.m_id = id;
+		this.id = id;
 	}
 	public String getFirstName() {
-		return m_firstName;
+		return firstName;
 	}
 	public void setFirstName(String firstName) {
-		this.m_firstName = firstName;
+		this.firstName = firstName;
 	}
 	public String getLastName() {
-		return m_lastName;
+		return lastName;
 	}
 	public void setLastName(String lastName) {
-		this.m_lastName = lastName;
+		this.lastName = lastName;
 	}
 	public String getEmail() {
-		return m_email;
+		return email;
 	}
 	public void setEmail(String email) {
-		this.m_email = email;
+		this.email = email;
 	}
 	public String getPassword() {
-		return m_password;
+		return password;
 	}
 	public void setPassword(String password) {
-		this.m_password = password;
+		this.password = password;
 	}
 	public ArrayList<Coupon> getCoupons() {
-		return m_coupons;
+		return coupons;
 	}
 	public void setCoupons(ArrayList<Coupon> coupons) {
-		this.m_coupons = coupons;
+		this.coupons = coupons;
 	}
 	
 	public Customer() {
@@ -54,30 +56,36 @@ public class Customer {
 	}
 	
 	public Customer(int id, String firstName, String lastName, String email, String password) {
-		this.m_id = id;
-		this.m_firstName = firstName;
-		this.m_lastName = lastName;
-		this.m_email = email;
-		this.m_password = password;
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+	}
+	public Customer( String firstName, String lastName, String email, String password) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
 	}
 	
 	@Override
 	public String toString() {
-		return "Customer [id=" + m_id + ", firstName=" + m_firstName + ", lastName=" + m_lastName + ", email=" + m_email + "]";
+		return "Customer [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
 	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ID")
-	int m_id;
-	@Column(name="FIRST_NAME")
-	String m_firstName;
-	@Column(name="LAST_NAME")
-	String m_lastName;
-	@Column(name="EMAIL")
-	String m_email;
-	@Column(name="PASSWORD")
-	String m_password;
+	@Column(name="Id")
+	int id;
+	@Column(name="FirstName")
+	String firstName;
+	@Column(name="LastName")
+	String lastName;
+	@Column(name="Email")
+	String email;
+	@Column(name="Password")
+	String password;
 	@Transient
-	ArrayList<Coupon> m_coupons;
+	ArrayList<Coupon> coupons;
 }
