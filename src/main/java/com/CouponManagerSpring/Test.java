@@ -23,15 +23,9 @@ public class Test {
 	CompanyServicesImpl  companyFacade;
 	@Autowired
 	CustomerServicesImpl  customerFacade;
-	
-	public static void main(String[] args) {
-		Test test = new Test();
 
-		test.tester();
-	}
-	
 	public void tester(){
-		
+	
 		adminFacde = (AdminServicesImpl)loginManager.login("admin@admin.com","admin", ClientType.Administrator);
 		administratorUserTest(adminFacde);
 		
