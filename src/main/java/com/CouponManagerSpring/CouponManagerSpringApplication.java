@@ -10,4 +10,5 @@ public class CouponManagerSpringApplication {
 		SpringApplication.run(CouponManagerSpringApplication.class, args);
 	}
 
+	
 }

@@ -1,20 +1,28 @@
 package com.CouponManagerSpring;
-
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+/*
 import java.util.ArrayList;
 
-import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+
 
 import com.CouponManagerSpring.Login.*;
 import com.CouponManagerSpring.Singleton.Singleton;
 import com.CouponManagerSpring.dao.*;
 import com.CouponManagerSpring.service.*;
-
+*/
 
 @SpringBootTest
 class CouponManagerSpringApplicationTests {
+	@Test
+	void contextLoads() {
 
+		//tester();
+		
+	}
+	/*
 	@Autowired
 	LoginManager loginManager;
 	@Autowired
@@ -24,12 +32,7 @@ class CouponManagerSpringApplicationTests {
 	@Autowired
 	CustomerServicesImpl  customerFacade;
 	
-	@Test
-	void contextLoads() {
 
-		tester();
-		
-	}
 	
 	public void tester(){
 		
@@ -262,7 +265,7 @@ class CouponManagerSpringApplicationTests {
 			System.out.println(customer.toString());
 			
 		}
-
+*/
 }
 
 
