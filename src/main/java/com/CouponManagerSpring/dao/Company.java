@@ -64,7 +64,7 @@ public class Company {
 		@Id
 		@GeneratedValue(strategy=GenerationType.IDENTITY) // AI
 		@Column(name="Id")
-		//@OneToMany(mappedBy="COMPANY_ID", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+		//@OneToMany(mappedBy="companyId", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 		int id;
 		@Column(name="Name")
 		String name;

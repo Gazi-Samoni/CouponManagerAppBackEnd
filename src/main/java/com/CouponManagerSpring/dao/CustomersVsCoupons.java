@@ -14,19 +14,24 @@ public class CustomersVsCoupons {
 	// we should check if we have to make a category class to put it also in the database..
 	@Id
 	@Column(name="CouponId")
-	int coupounId;
+	int couponId;
 	
 	@Id
 	@Column(name="CustomerId")
 	int customerId;
 	
+	public CustomersVsCoupons(int couponId, int customerId) {
+		this.couponId = couponId;
+		this.customerId = customerId;
+	}
+	
 	
 	public int getCoupounID() {
-		return coupounId;
+		return couponId;
 	}
 
 	public void setCoupounID(int coupounID) {
-		this.coupounId = coupounID;
+		this.couponId = coupounID;
 	}
 
 	public int getCustomerID() {
@@ -36,5 +41,7 @@ public class CustomersVsCoupons {
 	public void setCustomerID(int customerID) {
 		this.customerId = customerID;
 	}
+	
+	
 	
 }

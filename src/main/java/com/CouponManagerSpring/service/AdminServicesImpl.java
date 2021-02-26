@@ -122,7 +122,7 @@ public class AdminServicesImpl extends ClientService{
 		else {
 			for(Coupon var:coupons)
 			{
-				this.m_customersVScouponsRepo.delete(new CustomerVsCouponMultipleId(customerID, var.getID()));
+				this.m_customersVScouponsRepo.deleteByCouponId(var.getID());
 			}
 		}
 		this.m_customerRepo.deleteById(customerID);

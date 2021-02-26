@@ -47,7 +47,7 @@ public class CustomerServicesImpl extends ClientService{
 			{
 				if(isVaildCouponDate(coupon.getEndDate()))
 				{
-					m_customersVScouponsRepo.save(new CustomerVsCouponMultipleId(this.m_customerID, coupon.getID()));
+					m_customersVScouponsRepo.save(new CustomersVsCoupons(this.m_customerID, coupon.getID()));
 					coupon.setAmount(coupon.getAmount()-1);
 					m_couponRepo.save(coupon);
 					m_customerRepo.getOne(this.m_customerID).getCoupons().add(coupon);

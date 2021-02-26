@@ -74,7 +74,7 @@ public class CompanyServicesImpl extends ClientService{
 			int currCouponID = customerVsCouponTable.get(i).getCoupounID();
 			if(currCouponID == couponID)
 			{
-				m_customersVScouponsRepo.delete(new CustomerVsCouponMultipleId(customerVsCouponTable.get(i).getCustomerID(), currCouponID));
+				m_customersVScouponsRepo.deleteByCouponId(currCouponID);
 			}
 		}
 	
