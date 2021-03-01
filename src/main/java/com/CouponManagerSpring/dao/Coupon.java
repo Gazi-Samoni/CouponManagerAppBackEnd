@@ -136,7 +136,7 @@ public class Coupon {
 	@Column(name="Id")
 	int id;
 	@Column(name="ComapnyId")
-	@ManyToOne
+	
 	int companyId;
 	@Enumerated(EnumType.STRING)
 	@Column(name="CategoryId")
