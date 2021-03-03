@@ -1,6 +1,6 @@
 package com.CouponManagerSpring;
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+
+
 /*
 import java.util.ArrayList;
 
@@ -14,9 +14,9 @@ import com.CouponManagerSpring.dao.*;
 import com.CouponManagerSpring.service.*;
 */
 
-@SpringBootTest
+
 class CouponManagerSpringApplicationTests {
-	@Test
+
 	void contextLoads() {
 
 		//tester();

@@ -133,6 +133,6 @@ public class CompanyServicesImpl extends ClientService{
 		return m_companyID;
 	}
 	public int getCompanyIdByEmailAndPassword(String email, String password) {
-		return m_companyRepo.findByEmailAndName(email, password).getID();
+		return m_companyRepo.findByEmailAndPassword(email, password).getID();
 	}
 }

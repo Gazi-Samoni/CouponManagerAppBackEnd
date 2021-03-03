@@ -36,9 +36,9 @@ public class AdminServicesImpl extends ClientService{
 		}
 	}
 	public void updateCompany(Company company){
-		Company tempCompany = this.m_companyRepo.getOne(company.getID()); 
+		Company tempCompany = this.m_companyRepo.findById(company.getID());
 		Company tempCompany2 = this.m_companyRepo.findByName(company.getName()); 
-		
+
 		if(tempCompany== null || tempCompany2 == null){
 			System.out.println("Invaild input -> Can't edit company Id");
 		}
@@ -53,8 +53,8 @@ public class AdminServicesImpl extends ClientService{
 	}
 	
 	public void deleteCompany(int companyID){
-		Company company = this.m_companyRepo.getOne(companyID);
-		ArrayList<Coupon> coupons = company.getCoupons();
+		//Company company = this.m_companyRepo.findById(companyID);
+		ArrayList<Coupon> coupons = this.m_couponRepo.findAllByCompanyId(companyID);
 		deleteCouponsHistory(coupons);
 		this.m_companyRepo.deleteById(companyID);
 	}
@@ -96,7 +96,7 @@ public class AdminServicesImpl extends ClientService{
 	}
 	
 	public Company getOneCompany(int companyID){
-		return this.m_companyRepo.getOne(companyID);
+		return this.m_companyRepo.findById(companyID);
 	}
 	
 	public void addCustomer(Customer customer){
@@ -113,7 +113,7 @@ public class AdminServicesImpl extends ClientService{
 	}
 	
 	public void deleteCustomer(int customerID){
-		ArrayList<Coupon> coupons = this.m_customerRepo.getOne(customerID).getCoupons();
+		ArrayList<Coupon> coupons = this.getCustomerCoupons(customerID);
 		//delete from customer_vs_coupon table
 		if(coupons == null)
 		{
@@ -131,7 +131,19 @@ public class AdminServicesImpl extends ClientService{
 		return (ArrayList<Customer>)this.m_customerRepo.findAll();
 	}
 	public Customer getOneCustomer(int customerID){
-		return this.m_customerRepo.getOne(customerID);
+		return this.m_customerRepo.findById(customerID);
+	}
+	
+	private ArrayList<Coupon> getCustomerCoupons(int customerId){
+		
+		ArrayList<CustomersVsCoupons> customerVsCouponList = (ArrayList<CustomersVsCoupons>)m_customersVScouponsRepo.findByCustomerId(customerId);
+		ArrayList<Coupon> coupons = new ArrayList<Coupon>();
+		for (int i = 0; i < customerVsCouponList.size(); i++)
+		{
+				coupons.add(m_couponRepo.getOne(customerVsCouponList.get(i).getCoupounID()));
+		}
+		
+		return coupons;
 	}
 
 }

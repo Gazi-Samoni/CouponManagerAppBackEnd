@@ -3,6 +3,7 @@ package com.CouponManagerSpring;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,7 @@ import com.CouponManagerSpring.service.*;
 
 @Scope("singleton")
 @Component
-public class Test {
+public class Test implements CommandLineRunner{
 
 	@Autowired
 	LoginManager loginManager;
@@ -23,6 +24,12 @@ public class Test {
 	CompanyServicesImpl  companyFacade;
 	@Autowired
 	CustomerServicesImpl  customerFacade;
+
+	@Override
+	public void run(String... args) throws Exception {
+		tester();
+		
+	}
 
 	public void tester(){
 	
@@ -36,7 +43,7 @@ public class Test {
 		CustomerUserTest(customerFacade);	
 	}
 			
-		static void administratorUserTest(AdminServicesImpl adminFacade){
+		 void administratorUserTest(AdminServicesImpl adminFacade){
 			System.out.println("\n\n\n");
 			System.out.println("------------------Administrator Test------------------");
 			
@@ -55,8 +62,10 @@ public class Test {
 			//to delete
 			long millis=System.currentTimeMillis(); 
 			java.sql.Date date = new java.sql.Date(millis);
-			CompanyServicesImpl companyFacade = new CompanyServicesImpl();
+			
 			//create coupons
+			System.out.println(Amdocs.getEmail() + " " +Amdocs.getPassword() );
+			
 			Amdocs.setID(companyFacade.getCompanyIdByEmailAndPassword(Amdocs.getEmail(),Amdocs.getPassword()));
 			companyFacade.setID(Amdocs.getID());
 			Intel.setID(companyFacade.getCompanyIdByEmailAndPassword(Intel.getEmail(),Intel.getPassword()));
@@ -77,12 +86,17 @@ public class Test {
 				//exists email
 				company4.setEmail("Intel@Intel.com");
 				company4.setName("test2");
+				System.out.println("aabbbbbbbbbaaaaaaaaaaaaaaaaaaaaa");
 				adminFacade.addCompany(company4);
+				System.out.println("aaaaacccccccccaaaaa");
 			
 			//Update Company
 				//Edit Password 
+				System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 				Microsoft.setPassword("8888");
 				adminFacade.updateCompany(Microsoft);
+				System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+			
 				//Edit ID -> fail
 				int saveID = Amdocs.getID();
 				Amdocs.setID(25);
@@ -108,8 +122,7 @@ public class Test {
 			Company company5 = adminFacade.getOneCompany(Intel.getID());
 			System.out.println(company5.toString());
 			
-			
-			CustomerServicesImpl customerFacade = new CustomerServicesImpl();
+			System.out.println("\n\n\n");
 			//Add new customers
 			Customer customer = new Customer("Abed","shalgam","abed@gmail.com","1234");
 			Customer customer2 = new Customer("Gazi","Samoni","gazi@gmail.com","1234");
@@ -147,7 +160,7 @@ public class Test {
 			
 		}
 		
-		static void companyUserTest(CompanyServicesImpl companyFacade ){	
+		 void companyUserTest(CompanyServicesImpl companyFacade ){	
 			System.out.println("\n\n\n");
 			System.out.println("------------------Company Test------------------");
 
@@ -194,7 +207,7 @@ public class Test {
 			System.out.println(company.toString());
 		}
 		
-		static void CustomerUserTest(CustomerServicesImpl customerFacade){
+		 void CustomerUserTest(CustomerServicesImpl customerFacade){
 			System.out.println("\n\n\n");
 			System.out.println("------------------Customer Test------------------");
 			
@@ -256,6 +269,7 @@ public class Test {
 			
 		}
 
+		
 }
 
 
