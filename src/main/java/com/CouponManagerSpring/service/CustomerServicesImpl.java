@@ -51,7 +51,7 @@ public class CustomerServicesImpl extends ClientService{
 			{
 				if(isVaildCouponDate(coupon.getEndDate()))
 				{
-					CustomersVsCoupons tosave = new CustomersVsCoupons(this.m_customerID, coupon.getID());
+					CustomersVsCoupons tosave = new CustomersVsCoupons( coupon.getID(),this.m_customerID);
 					m_customersVScouponsRepo.saveAndFlush(tosave);
 					coupon.setAmount(coupon.getAmount()-1);
 					m_couponRepo.save(coupon);
@@ -99,23 +99,22 @@ public class CustomerServicesImpl extends ClientService{
 			}
 		}
 		
-		
 		return coupons;
 		
 	}
 	public ArrayList<Coupon> getCustomerCoupons(double maxPrice){
 		ArrayList<Coupon> coupons = getCustomerCoupons();
-		for(Coupon var:coupons)
+		for (int i = 0; i < coupons.size(); i++)
 		{
-			if(var.getPrice() > maxPrice)
+			if(coupons.get(i).getPrice() > maxPrice)
 			{
-				coupons.remove(var);
+				coupons.remove(i);
 			}
 		}
 		return coupons;
 	}
 	public Customer getCustomerDetails(){
-		Customer customer= m_customerRepo.getOne(this.m_customerID);
+		Customer customer= m_customerRepo.findById(this.m_customerID);
 		
 		Set<Coupon> toSet = new HashSet<Coupon>(this.getCustomerCoupons());
 		customer.setCoupons(toSet);

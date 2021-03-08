@@ -83,7 +83,7 @@ public class AdminServicesImpl extends ClientService{
 				
 				int customerID = customersVsCouponsList.get(i).getCustomerID();
 				// i fixed here
-				Set<Coupon> customerCoupons =  m_customerRepo.getOne(customerID).getCoupons();
+				Set<Coupon> customerCoupons =  m_customerRepo.findById(customerID).getCoupons();
 				
 				Iterator<Coupon> it = customerCoupons.iterator();
 				

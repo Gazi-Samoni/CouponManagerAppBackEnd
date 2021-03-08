@@ -9,7 +9,7 @@ public class CustomerVsCouponMultipleId implements Serializable{
 	int customerId;
 	
 	public CustomerVsCouponMultipleId () {}
-	public CustomerVsCouponMultipleId (int customerId, int couponId)
+	public CustomerVsCouponMultipleId (int couponId,int customerId)
 	{
 		this.couponId = couponId;
 		this.customerId = customerId;

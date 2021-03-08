@@ -79,14 +79,14 @@ public class Test implements CommandLineRunner{
 			companyFacade.addCoupon(coupon2);
 			companyFacade.addCoupon(coupon3);
 			
-			
+			/*
 			// i fixed here
 			Iterator<Coupon> it = Amdocs.getCoupons().iterator();
 			
 			while(it.hasNext()) {
 					System.out.println(it.next().toString());
 			}
-			
+			*/
 			//Failure test 
 				//exists name
 				Company company4 = new Company("Amdocs","a@a.com","1234");	
