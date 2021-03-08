@@ -27,7 +27,6 @@ public class CompanyController {
 	public boolean login(String email, String password) {
 		return false;
 		
-		
 	}
 	@PostMapping("/add")
 	public  ResponseEntity<?> addCoupon(@RequestBody Coupon coupon){
