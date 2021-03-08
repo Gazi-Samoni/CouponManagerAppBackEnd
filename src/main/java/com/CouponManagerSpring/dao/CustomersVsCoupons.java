@@ -20,6 +20,7 @@ public class CustomersVsCoupons {
 	@Column(name="CustomerId")
 	int customerId;
 	
+	public CustomersVsCoupons() {}
 	public CustomersVsCoupons(int couponId, int customerId) {
 		this.couponId = couponId;
 		this.customerId = customerId;

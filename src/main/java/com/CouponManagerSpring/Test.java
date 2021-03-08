@@ -19,7 +19,7 @@ public class Test implements CommandLineRunner{
 	@Autowired
 	LoginManager loginManager;
 	@Autowired
-	AdminServicesImpl  adminFacde ;
+	AdminServicesImpl  adminFacde;
 	@Autowired
 	CompanyServicesImpl  companyFacade;
 	@Autowired
@@ -27,11 +27,16 @@ public class Test implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
+		 @SuppressWarnings("unused")
+		    org.jboss.logging.Logger logger = org.jboss.logging.Logger.getLogger("org.hibernate");
+		    java.util.logging.Logger.getLogger("org.hibernate").setLevel(java.util.logging.Level.OFF); //or whatever level you need
+
 		tester();
 		
 	}
 
 	public void tester(){
+		
 	
 		adminFacde = (AdminServicesImpl)loginManager.login("admin@admin.com","admin", ClientType.Administrator);
 		administratorUserTest(adminFacde);
@@ -79,6 +84,11 @@ public class Test implements CommandLineRunner{
 			companyFacade.addCoupon(coupon3);
 			
 			
+			for (int i = 0; i < Amdocs.getCoupons().size(); i++) {
+				System.out.println(Amdocs.getCoupons().get(i).toString());
+				
+			}
+			
 			//Failure test 
 				//exists name
 				Company company4 = new Company("Amdocs","a@a.com","1234");	
@@ -86,16 +96,13 @@ public class Test implements CommandLineRunner{
 				//exists email
 				company4.setEmail("Intel@Intel.com");
 				company4.setName("test2");
-				System.out.println("aabbbbbbbbbaaaaaaaaaaaaaaaaaaaaa");
 				adminFacade.addCompany(company4);
-				System.out.println("aaaaacccccccccaaaaa");
+				
 			
 			//Update Company
 				//Edit Password 
-				System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 				Microsoft.setPassword("8888");
 				adminFacade.updateCompany(Microsoft);
-				System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 			
 				//Edit ID -> fail
 				int saveID = Amdocs.getID();
@@ -123,6 +130,7 @@ public class Test implements CommandLineRunner{
 			System.out.println(company5.toString());
 			
 			System.out.println("\n\n\n");
+			
 			//Add new customers
 			Customer customer = new Customer("Abed","shalgam","abed@gmail.com","1234");
 			Customer customer2 = new Customer("Gazi","Samoni","gazi@gmail.com","1234");
@@ -211,7 +219,6 @@ public class Test implements CommandLineRunner{
 			System.out.println("\n\n\n");
 			System.out.println("------------------Customer Test------------------");
 			
-			CompanyServicesImpl companyFacade = new CompanyServicesImpl();
 			int IntelID = companyFacade.getCompanyIdByEmailAndPassword("Intel@Intel.com","1234");
 			companyFacade.setID(IntelID);
 			java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
@@ -258,7 +265,7 @@ public class Test implements CommandLineRunner{
 			}
 			System.out.println("");
 			//Get customer coupons by max price
-			ArrayList<Coupon> custumerCoupons3 = customerFacade.getCustomerCoupons(customerFacade.getID());
+			ArrayList<Coupon> custumerCoupons3 = customerFacade.getCustomerCoupons(customerFacade.getId());
 			for(Coupon var:custumerCoupons3)
 			{
 				System.out.println(var.toString());

@@ -21,13 +21,19 @@ public class CompanyServicesImpl extends ClientService{
 	
 	@Override
 	public boolean login(String email, String password) {
+		boolean isExsist =m_companyRepo.existsByEmailAndPassword(email, password);
+		if(isExsist) {
+			this.m_companyID = m_companyRepo.findByEmailAndPassword(email, password).getID();	
+			m_companyRepo.findById(m_companyID).setCoupons(getCompanyCoupons());
+		}
+		return isExsist;
 		
-		return m_companyRepo.existsByEmailAndPassword(email, password);
 	}
 	public void addCoupon(Coupon coupon){
 		if(coupon.getCompanyID() == m_companyID){
 			if(isCouponTitleExists(coupon)==false){
 				m_couponRepo.save(coupon);
+				System.out.println("Coupon added :)");
 			}
 			else{
 				System.out.println(coupon.getTitle() + "`s title already exists");
@@ -78,13 +84,13 @@ public class CompanyServicesImpl extends ClientService{
 			}
 		}
 	
-		ArrayList<Coupon> coupons = m_companyRepo.getOne(m_companyID).getCoupons();
+		ArrayList<Coupon> coupons = this.getCompanyCoupons();
 		
-		for(Coupon var: coupons)
+		for(int i= 0; i< coupons.size();i++)
 		{
-			if(var.getID() == couponID)
+			if(coupons.get(i).getID() == couponID)
 			{
-				coupons.remove(var);
+				coupons.remove(i);
 				System.out.println("coupon : "+ couponID +" removed");
 			}
 		}
@@ -123,7 +129,7 @@ public class CompanyServicesImpl extends ClientService{
 		return coupons;
 	}
 	public Company getCompanyDetails(){
-		return m_companyRepo.getOne(this.m_companyID);
+		return m_companyRepo.findById(this.m_companyID);
 	}	
 
 	public void setID(int companyID) {

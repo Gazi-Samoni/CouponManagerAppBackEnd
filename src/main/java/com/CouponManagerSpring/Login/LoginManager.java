@@ -51,16 +51,12 @@ public class LoginManager {
 			case Company:
 
 					if(companyAuthority.login(email, password)) {
-						int companyID = companyAuthority.getCompanyRepo().findByEmailAndName(email,password).getID();
-						companyAuthority.setID(companyID);
 						client = companyAuthority;
 					}
 				break;
 			
 			case Customer:
 					if(customerAuthority.login(email, password)) {
-						int customerID = customerAuthority.getCustomerRepo().findByEmailAndPassword(email,password).getId();
-						customerAuthority.setID(customerID);
 						client = customerAuthority;
 					}
 			

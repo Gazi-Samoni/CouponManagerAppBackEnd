@@ -21,8 +21,11 @@ public class CustomerServicesImpl extends ClientService{
 	
 	@Override
 	public boolean login(String email, String password) {
-		
-		return m_customerRepo.existsByEmailAndPassword(email,password);
+		boolean isExsist =m_customerRepo.existsByEmailAndPassword(email,password);
+		if(isExsist) {
+			this.m_customerID = m_customerRepo.findByEmailAndPassword(email, password).getId();	
+		}
+		return isExsist;
 	}
 	
 	public void purchaseCoupon(Coupon coupon)
@@ -47,10 +50,11 @@ public class CustomerServicesImpl extends ClientService{
 			{
 				if(isVaildCouponDate(coupon.getEndDate()))
 				{
-					m_customersVScouponsRepo.save(new CustomersVsCoupons(this.m_customerID, coupon.getID()));
+					CustomersVsCoupons tosave = new CustomersVsCoupons(this.m_customerID, coupon.getID());
+					m_customersVScouponsRepo.saveAndFlush(tosave);
 					coupon.setAmount(coupon.getAmount()-1);
 					m_couponRepo.save(coupon);
-					m_customerRepo.getOne(this.m_customerID).getCoupons().add(coupon);
+					//m_customerRepo.findById(this.m_customerID).getCoupons().add(coupon);
 				}
 				else
 				{
@@ -78,7 +82,7 @@ public class CustomerServicesImpl extends ClientService{
 		ArrayList<Coupon> coupons = new ArrayList<Coupon>();
 		for (int i = 0; i < customerVsCouponList.size(); i++)
 		{
-				coupons.add(m_couponRepo.getOne(customerVsCouponList.get(i).getCoupounID()));
+				coupons.add(m_couponRepo.findById(customerVsCouponList.get(i).getCoupounID()));
 		}
 		
 		return coupons;
@@ -126,8 +130,8 @@ public class CustomerServicesImpl extends ClientService{
 		return m_couponRepo.findByCompanyIdAndTitle(companyID, couponTitle);
 	}
 
-	public void setID(int customerID) { m_customerID = customerID; }
+	public void setId(int customerID) { m_customerID = customerID; }
 	
-	public int getID() { return m_customerID; }
+	public int getId() { return m_customerID; }
 
 }

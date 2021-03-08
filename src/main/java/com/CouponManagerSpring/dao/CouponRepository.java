@@ -10,6 +10,7 @@ public interface CouponRepository extends JpaRepository<Coupon, Integer>{
 	
 	public ArrayList<Coupon> findAllByCompanyId(int m_companyID);
 	public Coupon findByCompanyIdAndTitle(int companyID,String couponTitle);
+	public Coupon findById(int id);
 	
 	/*
 	public void addCoupon(Coupon coupon);
