@@ -1,6 +1,7 @@
 package com.CouponManagerSpring;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -27,12 +28,7 @@ public class Test implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		 @SuppressWarnings("unused")
-		    org.jboss.logging.Logger logger = org.jboss.logging.Logger.getLogger("org.hibernate");
-		    java.util.logging.Logger.getLogger("org.hibernate").setLevel(java.util.logging.Level.OFF); //or whatever level you need
-
 		tester();
-		
 	}
 
 	public void tester(){
@@ -84,9 +80,11 @@ public class Test implements CommandLineRunner{
 			companyFacade.addCoupon(coupon3);
 			
 			
-			for (int i = 0; i < Amdocs.getCoupons().size(); i++) {
-				System.out.println(Amdocs.getCoupons().get(i).toString());
-				
+			// i fixed here
+			Iterator<Coupon> it = Amdocs.getCoupons().iterator();
+			
+			while(it.hasNext()) {
+					System.out.println(it.next().toString());
 			}
 			
 			//Failure test 

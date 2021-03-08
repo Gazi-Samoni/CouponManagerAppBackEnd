@@ -2,6 +2,8 @@ package com.CouponManagerSpring.service;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -52,9 +54,10 @@ public class AdminServicesImpl extends ClientService{
 		}
 	}
 	
+	// i fixed here
 	public void deleteCompany(int companyID){
 		//Company company = this.m_companyRepo.findById(companyID);
-		ArrayList<Coupon> coupons = this.m_couponRepo.findAllByCompanyId(companyID);
+		ArrayList<Coupon> coupons = new ArrayList<Coupon>(this.m_couponRepo.findAllByCompanyId(companyID));
 		deleteCouponsHistory(coupons);
 		this.m_companyRepo.deleteById(companyID);
 	}
@@ -77,13 +80,19 @@ public class AdminServicesImpl extends ClientService{
 
 			for(int i =0 ; i< customersVsCouponsList.size() ; i++)
 			{
-				int customerID = customersVsCouponsList.get(i).getCustomerID();
-				ArrayList<Coupon> customerCoupons =  m_customerRepo.getOne(customerID).getCoupons();
 				
-				for (int j = 0; j < customerCoupons.size(); j++) {
-					if(customerCoupons.get(j).getID() == couponID ) 
+				int customerID = customersVsCouponsList.get(i).getCustomerID();
+				// i fixed here
+				Set<Coupon> customerCoupons =  m_customerRepo.getOne(customerID).getCoupons();
+				
+				Iterator<Coupon> it = customerCoupons.iterator();
+				
+				while (it.hasNext())
+				{
+					Coupon next = it.next();
+					if(next.getID() == couponID ) 
 					{
-						customerCoupons.remove(j);
+						customerCoupons.remove(next);
 					}
 				}
 			}

@@ -1,5 +1,5 @@
 package com.CouponManagerSpring.dao;
-import java.util.ArrayList;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -36,9 +36,9 @@ public class Company {
 		
 		public void setPassword(String m_password) { this.password = m_password;}
 		
-		public ArrayList<Coupon> getCoupons() { return coupons;}
+		public Set<Coupon> getCoupons() { return coupons;}
 		
-		public void setCoupons(ArrayList<Coupon> m_coupons) { this.coupons = m_coupons;}
+		public void setCoupons(Set<Coupon> m_coupons) { this.coupons = m_coupons;}
 		
 		//Constructors
 		public Company() {}
@@ -73,8 +73,8 @@ public class Company {
 		@Column(name="Password")
 		String password;
 		@Transient
-		@OneToMany(mappedBy ="companyId",fetch = FetchType.EAGER, cascade = CascadeType.ALL )
-		ArrayList<Coupon> coupons;
+		//@OneToMany(mappedBy ="companyId",fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+		Set<Coupon> coupons;
 		
 }
 

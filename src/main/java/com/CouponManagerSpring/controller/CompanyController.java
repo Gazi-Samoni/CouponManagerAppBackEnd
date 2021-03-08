@@ -2,6 +2,7 @@ package com.CouponManagerSpring.controller;
 
 import java.util.ArrayList;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,9 +45,10 @@ public class CompanyController {
 		return new ResponseEntity<>(HttpStatus.OK);	
 	}
 	
+	// i fixed here
 	@GetMapping("/coupons")
 	public ResponseEntity<ArrayList<Coupon>> getCompanyCoupons(){
-		ArrayList<Coupon> coupons = companyServices.getCompanyCoupons();
+		ArrayList<Coupon> coupons = new ArrayList<Coupon>(companyServices.getCompanyCoupons());
 		return new ResponseEntity<>(coupons, HttpStatus.OK);
 	}
 	

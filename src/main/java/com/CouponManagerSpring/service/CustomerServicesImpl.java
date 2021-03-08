@@ -3,7 +3,8 @@ package com.CouponManagerSpring.service;
 
 import java.util.ArrayList;
 import java.util.Date;
-
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -116,7 +117,8 @@ public class CustomerServicesImpl extends ClientService{
 	public Customer getCustomerDetails(){
 		Customer customer= m_customerRepo.getOne(this.m_customerID);
 		
-		customer.setCoupons(this.getCustomerCoupons());
+		Set<Coupon> toSet = new HashSet<Coupon>(this.getCustomerCoupons());
+		customer.setCoupons(toSet);
 	
 		return customer;
 			

@@ -1,7 +1,8 @@
 package com.CouponManagerSpring.service;
 
 import java.util.ArrayList;
-
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,9 @@ public class CompanyServicesImpl extends ClientService{
 		boolean isExsist =m_companyRepo.existsByEmailAndPassword(email, password);
 		if(isExsist) {
 			this.m_companyID = m_companyRepo.findByEmailAndPassword(email, password).getID();	
-			m_companyRepo.findById(m_companyID).setCoupons(getCompanyCoupons());
+			// i fixed here
+			Set<Coupon> toSet = new HashSet<Coupon>(getCompanyCoupons());
+			m_companyRepo.findById(m_companyID).setCoupons(toSet);
 		}
 		return isExsist;
 		
@@ -43,8 +46,10 @@ public class CompanyServicesImpl extends ClientService{
 			System.out.println(coupon.getTitle() + " This coupon doesn`t belong to our company");
 		}
 	}
+	
+	// i fixed here
 	private boolean isCouponTitleExists(Coupon coupon){
-		ArrayList<Coupon> coupons = getCompanyCoupons();
+		ArrayList<Coupon> coupons = new ArrayList<>(getCompanyCoupons());
 		boolean isExists= false;
 		for(Coupon var:coupons)
 		{
@@ -99,8 +104,9 @@ public class CompanyServicesImpl extends ClientService{
 	}
 	
 	
+	// i fixed here (Casting)
 	public ArrayList<Coupon> getCompanyCoupons(){
-		return m_couponRepo.findAllByCompanyId(this.m_companyID);
+		return new ArrayList<Coupon>(m_couponRepo.findAllByCompanyId(this.m_companyID));
 	}
 	
 	
@@ -116,6 +122,7 @@ public class CompanyServicesImpl extends ClientService{
 		}
 		return coupons;
 	}
+	
 	public ArrayList<Coupon> getCompanyCoupons(double maxPrice){
 		ArrayList<Coupon> tempCoupons = getCompanyCoupons();
 		ArrayList<Coupon> coupons = new ArrayList<Coupon>();
