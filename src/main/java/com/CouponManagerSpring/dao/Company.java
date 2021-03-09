@@ -64,7 +64,6 @@ public class Company {
 		@Id
 		@GeneratedValue(strategy=GenerationType.IDENTITY) // AI
 		@Column(name="Id")
-		//@OneToMany(mappedBy="companyId", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 		int id;
 		@Column(name="Name")
 		String name;
@@ -73,7 +72,7 @@ public class Company {
 		@Column(name="Password")
 		String password;
 		@Transient
-		//@OneToMany(mappedBy ="companyId",fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+		@OneToMany(mappedBy ="companyId",fetch = FetchType.EAGER, cascade = CascadeType.ALL )
 		Set<Coupon> coupons;
 		
 }

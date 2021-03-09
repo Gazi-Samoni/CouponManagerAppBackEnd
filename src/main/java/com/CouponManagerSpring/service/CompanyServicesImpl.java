@@ -26,6 +26,8 @@ public class CompanyServicesImpl extends ClientService{
 		if(isExsist) {
 			this.m_companyID = m_companyRepo.findByEmailAndPassword(email, password).getID();	
 			// i fixed here 
+			Set<Coupon> towatch = m_companyRepo.findById(this.m_companyID).getCoupons();
+			
 			Set<Coupon> toSet = new HashSet<Coupon>(this.getCompanyCoupons());
 			m_companyRepo.findById(m_companyID).setCoupons(toSet);
 		}

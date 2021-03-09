@@ -99,7 +99,7 @@ public class Test implements CommandLineRunner{
 			
 			//Update Company
 				//Edit Password 
-				Microsoft.setPassword("8888");
+				//Microsoft.setPassword("8888");
 				adminFacade.updateCompany(Microsoft);
 			
 				//Edit ID -> fail
