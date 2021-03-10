@@ -82,11 +82,19 @@ public class AdminServicesImpl extends ClientService{
 			{
 				
 				int customerID = customersVsCouponsList.get(i).getCustomerID();
-				// i fixed here
-				ArrayList<Coupon> customerCoupons = new ArrayList<Coupon>(m_customerRepo.findById(customerID).getCoupons());
-			
 				
+				ArrayList<CustomersVsCoupons> customerVsCouponList = (ArrayList<CustomersVsCoupons>)m_customersVScouponsRepo.findByCustomerId(customerID);
+				ArrayList<Coupon> customerCoupons = new ArrayList<Coupon>();
+				for (int j = 0; j < customerVsCouponList.size(); j++)
+				{
+					customerCoupons.add(m_couponRepo.findById(customerVsCouponList.get(j).getCoupounID()));
+				}
+				
+				//////
+						
 				for (int j = 0; j < customerCoupons.size(); j++) {
+					
+		
 					if(customerCoupons.get(j).getID() == couponID ) 
 					{
 						customerCoupons.remove(j);
