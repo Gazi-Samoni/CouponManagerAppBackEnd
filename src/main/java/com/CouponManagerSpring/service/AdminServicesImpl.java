@@ -2,8 +2,7 @@ package com.CouponManagerSpring.service;
 
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -105,7 +104,7 @@ public class AdminServicesImpl extends ClientService{
 	}
 
 	public ArrayList<Company> getAllCompanies(){
-		return (ArrayList<Company>) this.m_companyRepo.findAll();
+		return new ArrayList<Company>(this.m_companyRepo.findAll());
 	}
 	
 	public Company getOneCompany(int companyID){
