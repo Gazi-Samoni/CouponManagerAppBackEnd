@@ -18,24 +18,9 @@ public class LoginManager {
 	CompanyServicesImpl companyAuthority;
 	@Autowired
 	CustomerServicesImpl customerAuthority;
-	/*
-	private static LoginManager instance = null;
+
 	
-	public static LoginManager getInstance() {
-		if(instance == null)
-		{
-			System.out.println("Requiring LoginManager...");
-			instance = new LoginManager();
-			System.out.println("LoginManager established.");
-		}
-		
-		return instance;
-	}
-	 */
-	
-	private LoginManager() {
-		
-	}
+	private LoginManager() {}
 	
 	public ClientService login(String email, String password, ClientType clientType)
 	{
