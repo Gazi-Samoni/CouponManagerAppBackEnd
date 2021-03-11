@@ -29,9 +29,10 @@ public class CustomerServicesImpl extends ClientService{
 		return isExsist;
 	}
 	
-	public void purchaseCoupon(Coupon coupon)
+	public String purchaseCoupon(Coupon coupon)
 	{
 		boolean purchased = false;
+		String result="purchased";
 		ArrayList<Coupon> coupons = getCustomerCoupons();
 		
 		for (int i = 0; i < coupons.size(); i++) {
@@ -39,11 +40,11 @@ public class CustomerServicesImpl extends ClientService{
 			if(coupons.get(i).getID() == coupon.getID())
 			{
 				purchased =true;
-				System.out.println("You already purchased this coupon");
+				result = "You already purchased this coupon";
+				System.out.println(result);
 			}
 		}
-	
-		
+			
 		//if not purchased
 		if(!purchased)
 		{
@@ -59,14 +60,17 @@ public class CustomerServicesImpl extends ClientService{
 				}
 				else
 				{
-					System.out.println("Coupon Expired date");
+					result = "Coupon Expired date";
+					System.out.println(result);
 				}
 			}
 			else
 			{
-				System.out.println(coupon.getTitle() + " sold out :(");
+				result = coupon.getTitle() + " sold out :(";
+				System.out.println(result);
 			}
 		}
+		return result;
 	}
 	
 	private boolean isVaildCouponDate(Date endDate) {

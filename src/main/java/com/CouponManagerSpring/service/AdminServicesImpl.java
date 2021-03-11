@@ -20,46 +20,53 @@ public class AdminServicesImpl extends ClientService{
 			return false;
 	}
 	
-	public void addCompany(Company company){
-		
+	public String addCompany(Company company){
+		String result;
 		if(this.m_companyRepo.existsByEmail(company.getEmail()))
 		{
-			System.out.println("Company's email already exists");
+			result = "Company's email already exists";
+			System.out.println(result);
 		}
 		else if(this.m_companyRepo.existsByName(company.getName()))
 		{
-			System.out.println("Company's name already exists");
+			result = "Company's name already exists";
+			System.out.println(result);
 		}
 		else 
 		{
+			result = "Comany added";
 			this.m_companyRepo.save(company);
 		}
+		return result;
 	}
-	public void updateCompany(Company company){
+	public String updateCompany(Company company){
 		Company tempCompany = this.m_companyRepo.findById(company.getID());
 		Company tempCompany2 = this.m_companyRepo.findByName(company.getName()); 
-
+		String result;
+		
 		if(tempCompany== null || tempCompany2 == null){
-			System.out.println("Invaild input -> Can't edit company Id");
+			result = "Invaild input -> Can't edit company's Id / Name";
+			System.out.println(result);
 		}
 		else {
 			if(!tempCompany.getName().equals(tempCompany2.getName()) || tempCompany.getID() != tempCompany2.getID()){
-				System.out.println("Invaild input: u can't edit company's name/id");
+				result = "Invaild input: u can't edit company's name/id";
+				System.out.println(result);
 			}
 			else{
 				this.m_companyRepo.save(company);
+				result = "Comany Updated";
 			}
 		}
+		return result;
 	}
 	
-	// i fixed here
 	public void deleteCompany(int companyID){
 		ArrayList<Coupon> coupons = new ArrayList<Coupon>(this.m_couponRepo.findAllByCompanyId(companyID));
 		deleteCouponsHistory(coupons);
 		this.m_companyRepo.deleteById(companyID);
-	}
-	
 
+	}
 	private void deleteCouponsHistory(ArrayList<Coupon> coupons) {
 		Coupon coupon;
 		
@@ -70,7 +77,6 @@ public class AdminServicesImpl extends ClientService{
 			coupons.remove(0);
 		}	
 	}
-	
 	private void deleteCouponFromCustomerHistory(int couponID) {
 		
 		ArrayList<CustomersVsCoupons> customersVsCouponsList = (ArrayList<CustomersVsCoupons>)this.m_customersVScouponsRepo.findAll();
@@ -110,13 +116,16 @@ public class AdminServicesImpl extends ClientService{
 		return this.m_companyRepo.findById(companyID);
 	}
 	
-	public void addCustomer(Customer customer){
+	public String addCustomer(Customer customer){
+		String result= "Customer added";
 		if(m_customerRepo.existsByEmail(customer.getEmail())){
+			result = customer.getEmail() + " already Exists";
 			System.out.println(customer.getEmail() + " already Exists");
 		}
 		else{
 			this.m_customerRepo.save(customer);
 		}
+		return result;
 	}
 	
 	public void updateCustomer(Customer customer){
