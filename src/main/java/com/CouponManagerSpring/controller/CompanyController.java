@@ -24,7 +24,7 @@ public class CompanyController {
 		this.companyServices = companyServices;
 	}
 	
-	@PostMapping("/login/{email}/{passord}")
+	@PostMapping("/login/{email}/{password}")
 	public ResponseEntity<String> login(@PathVariable("email")String email, @PathVariable("password")String password) {
 		
 		if(companyServices.login(email, password)){

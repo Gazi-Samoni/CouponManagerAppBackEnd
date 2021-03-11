@@ -1,11 +1,14 @@
 package com.CouponManagerSpring.service;
 
 import java.util.ArrayList;
+
 import org.springframework.stereotype.Service;
+
 import com.CouponManagerSpring.dao.*;
 
 @Service
 public class AdminServicesImpl extends ClientService{
+	
 	
 	public AdminServicesImpl() {}
 	
@@ -19,13 +22,16 @@ public class AdminServicesImpl extends ClientService{
 	
 	public void addCompany(Company company){
 		
-		if(this.m_companyRepo.existsByEmail(company.getEmail())){
+		if(this.m_companyRepo.existsByEmail(company.getEmail()))
+		{
 			System.out.println("Company's email already exists");
 		}
-		else if(this.m_companyRepo.existsByName(company.getName())){
+		else if(this.m_companyRepo.existsByName(company.getName()))
+		{
 			System.out.println("Company's name already exists");
 		}
-		else {
+		else 
+		{
 			this.m_companyRepo.save(company);
 		}
 	}
@@ -46,12 +52,14 @@ public class AdminServicesImpl extends ClientService{
 		}
 	}
 	
+	// i fixed here
 	public void deleteCompany(int companyID){
 		ArrayList<Coupon> coupons = new ArrayList<Coupon>(this.m_couponRepo.findAllByCompanyId(companyID));
 		deleteCouponsHistory(coupons);
 		this.m_companyRepo.deleteById(companyID);
 	}
 	
+
 	private void deleteCouponsHistory(ArrayList<Coupon> coupons) {
 		Coupon coupon;
 		
@@ -63,21 +71,29 @@ public class AdminServicesImpl extends ClientService{
 		}	
 	}
 	
-	private void deleteCouponFromCustomerHistory(int couponID) {	
+	private void deleteCouponFromCustomerHistory(int couponID) {
+		
 		ArrayList<CustomersVsCoupons> customersVsCouponsList = (ArrayList<CustomersVsCoupons>)this.m_customersVScouponsRepo.findAll();
 
 			for(int i =0 ; i< customersVsCouponsList.size() ; i++)
-			{		
+			{
+				
 				int customerID = customersVsCouponsList.get(i).getCustomerID();
 				
 				ArrayList<CustomersVsCoupons> customerVsCouponList = (ArrayList<CustomersVsCoupons>)m_customersVScouponsRepo.findByCustomerId(customerID);
 				ArrayList<Coupon> customerCoupons = new ArrayList<Coupon>();
-				for (int j = 0; j < customerVsCouponList.size(); j++){
+				for (int j = 0; j < customerVsCouponList.size(); j++)
+				{
 					customerCoupons.add(m_couponRepo.findById(customerVsCouponList.get(j).getCoupounID()));
 				}
+				
+				//////
 						
 				for (int j = 0; j < customerCoupons.size(); j++) {
-					if(customerCoupons.get(j).getID() == couponID ) {
+					
+		
+					if(customerCoupons.get(j).getID() == couponID ) 
+					{
 						customerCoupons.remove(j);
 					}
 				}
@@ -110,11 +126,13 @@ public class AdminServicesImpl extends ClientService{
 	public void deleteCustomer(int customerID){
 		ArrayList<Coupon> coupons = this.getCustomerCoupons(customerID);
 		//delete from customer_vs_coupon table
-		if(coupons == null){
+		if(coupons == null)
+		{
 			System.out.println("no coupons purchase for : " + customerID);
 		}
 		else {
-			for(Coupon var:coupons){
+			for(Coupon var:coupons)
+			{
 				this.m_customersVScouponsRepo.deleteByCouponId(var.getID());
 			}
 		}
@@ -131,7 +149,8 @@ public class AdminServicesImpl extends ClientService{
 		
 		ArrayList<CustomersVsCoupons> customerVsCouponList = (ArrayList<CustomersVsCoupons>)m_customersVScouponsRepo.findByCustomerId(customerId);
 		ArrayList<Coupon> coupons = new ArrayList<Coupon>();
-		for (int i = 0; i < customerVsCouponList.size(); i++){
+		for (int i = 0; i < customerVsCouponList.size(); i++)
+		{
 				coupons.add(m_couponRepo.getOne(customerVsCouponList.get(i).getCoupounID()));
 		}
 		
