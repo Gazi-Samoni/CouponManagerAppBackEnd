@@ -1,14 +1,8 @@
 package com.CouponManagerSpring.service;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.springframework.stereotype.Service;
-
 import com.CouponManagerSpring.dao.*;
-import com.CouponManagerSpring.exceptions.CompanyNotFoundException;
-
 
 @Service
 public class CompanyServicesImpl extends ClientService{
@@ -17,50 +11,40 @@ public class CompanyServicesImpl extends ClientService{
 
 	public CompanyServicesImpl() {} 
 	
-	public CompanyServicesImpl(int companyID)
-	{
+	public CompanyServicesImpl(int companyID){
 		m_companyID = companyID;
 	}
 	
 	@Override
 	public boolean login(String email, String password) {
-		//boolean isExsist = m_companyRepo.existsByEmailAndPassword(email, password);
-		
-		//if(isExsist) {
-			Company company = m_companyRepo.findByEmailAndPassword(email, password);
-			if(company != null) {
-				this.m_companyID = company.getID();	
-				return true;
-			}
-			return false;
-			
-			/*
-			// i fixed here 
-			Set<Coupon> toWatch = m_companyRepo.findById(this.m_companyID).getCoupons();
-			Set<Coupon> toSet = new HashSet<Coupon>(this.getCompanyCoupons());
-			m_companyRepo.findById(m_companyID).setCoupons(toSet);
-			*/
-		//}
-		
-		//return isExsist;
-		
+	
+		Company company = m_companyRepo.findByEmailAndPassword(email, password);
+		if(company != null) {
+			this.m_companyID = company.getID();	
+			return true;
+		}
+		return false;
 	}
-	public void addCoupon(Coupon coupon){
+	public String addCoupon(Coupon coupon){
+		String result; 
 		if(coupon.getCompanyID() == m_companyID){
 			if(isCouponTitleExists(coupon)==false){
 				m_couponRepo.save(coupon);
 				System.out.println("Coupon added :)");
+				result ="Coupon added";
 			}
 			else{
-				System.out.println(coupon.getTitle() + "`s title already exists");
+				result = coupon.getTitle() + "`s title already exists";
+				System.out.println(result);
 			}
 		}
 		else{
-			System.out.println(coupon.getTitle() + " This coupon doesn`t belong to our company");
+			result = coupon.getTitle() + " This coupon doesn`t belong to our company";
+			System.out.println(result);
 		}
+		return result;
 	}
 	
-	// i fixed here
 	private boolean isCouponTitleExists(Coupon coupon){
 		ArrayList<Coupon> coupons = new ArrayList<>(getCompanyCoupons());
 		boolean isExists= false;
@@ -74,22 +58,26 @@ public class CompanyServicesImpl extends ClientService{
 		return isExists;
 		
 	}
-	public void updateCoupon(Coupon coupon){
-		
+	public String updateCoupon(Coupon coupon){
+		String result; 
 		if(coupon.getCompanyID() != this.m_companyID){
-			System.out.println("Can't change Company id");
+			result = "Can't edit Company id";
+			System.out.println(result);
 		}
 		else if(!m_couponRepo.existsById(coupon.getID())){
-			System.out.println("invalid coupon ID");
+			result ="invalid coupon ID";
+			System.out.println(result);
 		}
 		else{
 			m_couponRepo.save(coupon);
-			System.out.println("coupon updated.");
+			result = "coupon updated";
+			System.out.println(result);
 		}
+		return result;
 	}
 	
-	public void deleteCoupon(int couponID){
-		
+	public String deleteCoupon(int couponID){
+		String result="";
 		ArrayList<CustomersVsCoupons> customerVsCouponTable = (ArrayList<CustomersVsCoupons>)m_customersVScouponsRepo.findByCouponId(couponID);
 		
 		
@@ -106,14 +94,18 @@ public class CompanyServicesImpl extends ClientService{
 		
 		for(int i= 0; i< coupons.size();i++)
 		{
-			if(coupons.get(i).getID() == couponID)
-			{
-				coupons.remove(i);
-				System.out.println("coupon : "+ couponID +" removed");
-			}
+			//need to add validation
+			if(coupons.get(i).getCompanyID() == this.getCompanyID())
+				if(coupons.get(i).getID() == couponID)
+				{
+					coupons.remove(i);
+					result = "coupon : "+ couponID +" removed";
+					System.out.println(result);
+				}
 		}
 		
 		m_couponRepo.deleteById(couponID);
+		return result;
 	}
 	
 	

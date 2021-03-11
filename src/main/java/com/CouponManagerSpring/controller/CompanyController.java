@@ -24,46 +24,60 @@ public class CompanyController {
 		this.companyServices = companyServices;
 	}
 	
-	public boolean login(String email, String password) {
-		return false;
+	@PostMapping("/login/{email}/{passord}")
+	public ResponseEntity<String> login(@PathVariable("email")String email, @PathVariable("password")String password) {
 		
-	}
-	@PostMapping("/add")
-	public  ResponseEntity<?> addCoupon(@RequestBody Coupon coupon){
-		companyServices.addCoupon(coupon);
-		return new ResponseEntity<>(HttpStatus.CREATED);
-	}
-	@PostMapping("/update")
-	public  ResponseEntity<?> updateCoupon(@RequestBody Coupon coupon){
-		companyServices.addCoupon(coupon);
-		return new ResponseEntity<>(HttpStatus.OK);	
-	}
-	@DeleteMapping("/delete/{id}")
-	public  ResponseEntity<?> deleteCoupon(@PathVariable("id")int couponID){
-		companyServices.deleteCoupon(couponID);
-		return new ResponseEntity<>(HttpStatus.OK);	
+		if(companyServices.login(email, password)){
+			return new ResponseEntity<>("login succeded",HttpStatus.OK);
+		}
+		else	
+			return new ResponseEntity<>("login faild",HttpStatus.BAD_REQUEST);
 	}
 	
-	// i fixed here
+	@PostMapping("/coupon/add")
+	public  ResponseEntity<String> addCoupon(@RequestBody Coupon coupon){
+		String status = companyServices.addCoupon(coupon);
+		if(status.equals("Coupon added"))
+			return new ResponseEntity<>(status,HttpStatus.CREATED);
+		else
+			return new ResponseEntity<>(status,HttpStatus.IM_USED);
+	}
+	
+	@PostMapping("/coupon/update")
+	public  ResponseEntity<String> updateCoupon(@RequestBody Coupon coupon){
+		String status = companyServices.addCoupon(coupon);
+		if(status.equals("coupon updated"))
+			return new ResponseEntity<>(status,HttpStatus.OK);	
+		else
+			return new ResponseEntity<>(status,HttpStatus.BAD_REQUEST);	
+	}
+
+	@DeleteMapping("/coupon/delete/{id}")
+	public  ResponseEntity<?> deleteCoupon(@PathVariable("id")int couponID){
+		String status =companyServices.deleteCoupon(couponID);
+		if(status.contains("delete"))
+			return new ResponseEntity<>(HttpStatus.OK);	
+		else
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);	
+	}
+	
 	@GetMapping("/coupons")
 	public ResponseEntity<ArrayList<Coupon>> getCompanyCoupons(){
 		ArrayList<Coupon> coupons = new ArrayList<Coupon>(companyServices.getCompanyCoupons());
 		return new ResponseEntity<>(coupons, HttpStatus.OK);
 	}
-	
-	@GetMapping("/coupons/{category}")
-	public ResponseEntity<ArrayList<Coupon>> getCompanyCoupons(@RequestBody Category category){
-		ArrayList<Coupon> coupons = companyServices.getCompanyCoupons(category);
-		return new ResponseEntity<>(coupons, HttpStatus.OK);
-	}
-	
-	@GetMapping("/coupons/{price}")
-	public ResponseEntity<ArrayList<Coupon>> getCompanyCoupons(@PathVariable("price") double maxPrice){
-		ArrayList<Coupon> coupons = companyServices.getCompanyCoupons(maxPrice);
+
+	@GetMapping("/coupons/category/{category}")
+	public ResponseEntity<ArrayList<Coupon>> getCompanyCoupons(@PathVariable("category") Category category){
+		ArrayList<Coupon> coupons = new ArrayList<Coupon>(companyServices.getCompanyCoupons(category));
 		return new ResponseEntity<>(coupons, HttpStatus.OK);
 	}
 
-	
+	@GetMapping("/coupons/price/{price}")
+	public ResponseEntity<ArrayList<Coupon>> getCompanyCoupons(@PathVariable("price")double maxPrice){
+		ArrayList<Coupon> coupons = new ArrayList<Coupon>(companyServices.getCompanyCoupons(maxPrice));
+		return new ResponseEntity<>(coupons, HttpStatus.OK);
+	}
 	@GetMapping("/details")
 	public ResponseEntity<Company> getCompanyDetails (){
 		Company company = companyServices.getCompanyDetails();
