@@ -137,9 +137,8 @@ public class Coupon {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="Id")
 	int id;
-	@Column(name="ComapnyId")
 	
-	//@ManyToOne
+	@Column(name="companyId")
 	int companyId;
 	@Enumerated(EnumType.STRING)
 	@Column(name="CategoryId")

@@ -66,12 +66,35 @@ public class Test implements CommandLineRunner{
 			
 			//create coupons
 			System.out.println(Amdocs.getEmail() + " " +Amdocs.getPassword() );
+			/////////////////////////////////////////////
+			int id = companyFacade.getCompanyIdByEmailAndPassword(Amdocs.getEmail(),Amdocs.getPassword());
+			if (id == 0) {
+				System.out.println("Cannot find the company from the given email and password");
+				return;
+			}
 			
-			Amdocs.setID(companyFacade.getCompanyIdByEmailAndPassword(Amdocs.getEmail(),Amdocs.getPassword()));
+			Amdocs.setID(id);
+
 			companyFacade.setID(Amdocs.getID());
-			Intel.setID(companyFacade.getCompanyIdByEmailAndPassword(Intel.getEmail(),Intel.getPassword()));
-			Microsoft.setID(companyFacade.getCompanyIdByEmailAndPassword(Microsoft.getEmail(),Microsoft.getPassword()));
+			/////////////////////////////////////////////////////
+			id = companyFacade.getCompanyIdByEmailAndPassword(Intel.getEmail(),Intel.getPassword());
+			if (id == 0) {
+				System.out.println("Cannot find the company from the given email and password");
+				return;
+			}
 			
+			Intel.setID(id);
+			
+			////////////////////////////////////////////////////
+			id = companyFacade.getCompanyIdByEmailAndPassword(Microsoft.getEmail(),Microsoft.getPassword());
+			if (id == 0) {
+				System.out.println("Cannot find the company from the given email and password");
+				return;
+			}
+			
+			Microsoft.setID(id);
+			
+			/////////////////////////////////////////////////////
 			Coupon coupon = new Coupon(Amdocs.getID(),Category.Electricity,"coupon1","test1",date,date,5,3.6,"temp");
 			Coupon coupon2 = new Coupon(Amdocs.getID(),Category.Food,"coupon2","test31",date,date,5,3.6,"temp");
 			Coupon coupon3 = new Coupon(Amdocs.getID(),Category.Restaurant,"coupon3","test1",date,date,5,3.6,"temp");
@@ -79,14 +102,6 @@ public class Test implements CommandLineRunner{
 			companyFacade.addCoupon(coupon2);
 			companyFacade.addCoupon(coupon3);
 			
-			/*
-			// i fixed here
-			Iterator<Coupon> it = Amdocs.getCoupons().iterator();
-			
-			while(it.hasNext()) {
-					System.out.println(it.next().toString());
-			}
-			*/
 			//Failure test 
 				//exists name
 				Company company4 = new Company("Amdocs","a@a.com","1234");	

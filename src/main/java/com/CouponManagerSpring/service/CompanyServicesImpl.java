@@ -7,6 +7,8 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 
 import com.CouponManagerSpring.dao.*;
+import com.CouponManagerSpring.exceptions.CompanyNotFoundException;
+
 
 @Service
 public class CompanyServicesImpl extends ClientService{
@@ -22,16 +24,25 @@ public class CompanyServicesImpl extends ClientService{
 	
 	@Override
 	public boolean login(String email, String password) {
-		boolean isExsist =m_companyRepo.existsByEmailAndPassword(email, password);
-		if(isExsist) {
-			this.m_companyID = m_companyRepo.findByEmailAndPassword(email, password).getID();	
-			// i fixed here 
-			Set<Coupon> towatch = m_companyRepo.findById(this.m_companyID).getCoupons();
+		//boolean isExsist = m_companyRepo.existsByEmailAndPassword(email, password);
+		
+		//if(isExsist) {
+			Company company = m_companyRepo.findByEmailAndPassword(email, password);
+			if(company != null) {
+				this.m_companyID = company.getID();	
+				return true;
+			}
+			return false;
 			
+			/*
+			// i fixed here 
+			Set<Coupon> toWatch = m_companyRepo.findById(this.m_companyID).getCoupons();
 			Set<Coupon> toSet = new HashSet<Coupon>(this.getCompanyCoupons());
 			m_companyRepo.findById(m_companyID).setCoupons(toSet);
-		}
-		return isExsist;
+			*/
+		//}
+		
+		//return isExsist;
 		
 	}
 	public void addCoupon(Coupon coupon){
@@ -148,6 +159,16 @@ public class CompanyServicesImpl extends ClientService{
 		return m_companyID;
 	}
 	public int getCompanyIdByEmailAndPassword(String email, String password) {
-		return m_companyRepo.findByEmailAndPassword(email, password).getID();
+		try {
+			return m_companyRepo.findByEmailAndPassword(email, password).getID();
+		}
+		catch(Exception e)
+		{
+				int currentLine = e.getStackTrace()[0].getLineNumber();
+				String className = this.getClass().getName();
+				System.out.println(" EXCEPTION !!!! - Class : " + className + " Line: " + currentLine + " Reason:  Cannot find the company with the given email and password");
+				return 0;
+		}
+		
 	}
 }

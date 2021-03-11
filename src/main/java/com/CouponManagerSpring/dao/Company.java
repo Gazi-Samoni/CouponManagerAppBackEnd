@@ -71,8 +71,7 @@ public class Company {
 		String email;
 		@Column(name="Password")
 		String password;
-		@Transient
-		@OneToMany(mappedBy ="companyId",fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+		@OneToMany(mappedBy ="companyId",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 		Set<Coupon> coupons;
 		
 }

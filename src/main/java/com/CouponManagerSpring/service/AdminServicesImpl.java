@@ -56,7 +56,6 @@ public class AdminServicesImpl extends ClientService{
 	
 	// i fixed here
 	public void deleteCompany(int companyID){
-		//Company company = this.m_companyRepo.findById(companyID);
 		ArrayList<Coupon> coupons = new ArrayList<Coupon>(this.m_couponRepo.findAllByCompanyId(companyID));
 		deleteCouponsHistory(coupons);
 		this.m_companyRepo.deleteById(companyID);
