@@ -28,9 +28,8 @@ public class AdminstratorController {
 		this.adminService = adminService;
 	}
 	
-	@PostMapping("/login/{email}/{password}")
+	@GetMapping("/login/{email}/{password}")
 	public ResponseEntity<String> login(@PathVariable("email")String email, @PathVariable("password")String password) {
-		
 		if(adminService.login(email, password))
 			return new ResponseEntity<>("login succeded",HttpStatus.OK);
 		else	
@@ -79,8 +78,10 @@ public class AdminstratorController {
 	@PostMapping("/customer/add")
 	public ResponseEntity<String> addCustomer(@RequestBody Customer customer){
 		String status = adminService.addCustomer(customer);
-		if(status.equals("customer added"))
+		if(status.equals("Customer added")) {
+			System.out.println("going to add \n" +customer.toString() );
 			return new ResponseEntity<>(status,HttpStatus.CREATED);
+		}
 		else	
 			return new ResponseEntity<>(status,HttpStatus.BAD_REQUEST);
 	}

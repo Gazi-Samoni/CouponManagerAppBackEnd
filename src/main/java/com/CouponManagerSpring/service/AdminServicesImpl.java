@@ -118,7 +118,11 @@ public class AdminServicesImpl extends ClientService{
 	
 	public String addCustomer(Customer customer){
 		String result= "Customer added";
-		if(m_customerRepo.existsByEmail(customer.getEmail())){
+		if(customer.getFirstName() =="" || customer.getLastName() =="" || customer.getEmail() =="" || customer.getPassword() =="")
+		{
+			result = "Invalid input";
+		}
+		else if(m_customerRepo.existsByEmail(customer.getEmail())){
 			result = customer.getEmail() + " already Exists";
 			System.out.println(customer.getEmail() + " already Exists");
 		}
