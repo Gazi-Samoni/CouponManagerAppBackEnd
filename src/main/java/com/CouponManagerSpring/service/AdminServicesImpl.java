@@ -20,7 +20,7 @@ public class AdminServicesImpl extends ClientService{
 			return false;
 	}
 	
-	public String addCompany(Company company){
+	public Company addCompany(Company company){
 		String result;
 		if(this.m_companyRepo.existsByEmail(company.getEmail()))
 		{
@@ -35,11 +35,11 @@ public class AdminServicesImpl extends ClientService{
 		else 
 		{
 			result = "Comany added";
-			this.m_companyRepo.save(company);
+			return this.m_companyRepo.save(company);
 		}
-		return result;
+		return null;
 	}
-	public String updateCompany(Company company){
+	public Company updateCompany(Company company){
 		Company tempCompany = this.m_companyRepo.findById(company.getID());
 		Company tempCompany2 = this.m_companyRepo.findByName(company.getName()); 
 		String result;
@@ -54,11 +54,11 @@ public class AdminServicesImpl extends ClientService{
 				System.out.println(result);
 			}
 			else{
-				this.m_companyRepo.save(company);
 				result = "Comany Updated";
+				return this.m_companyRepo.save(company);
 			}
 		}
-		return result;
+		return null;
 	}
 	
 	public void deleteCompany(int companyID){
@@ -116,24 +116,26 @@ public class AdminServicesImpl extends ClientService{
 		return this.m_companyRepo.findById(companyID);
 	}
 	
-	public String addCustomer(Customer customer){
+	public Customer addCustomer(Customer customer){
 		String result= "Customer added";
 		if(customer.getFirstName() =="" || customer.getLastName() =="" || customer.getEmail() =="" || customer.getPassword() =="")
 		{
 			result = "Invalid input";
+			System.out.println(result);
 		}
 		else if(m_customerRepo.existsByEmail(customer.getEmail())){
 			result = customer.getEmail() + " already Exists";
-			System.out.println(customer.getEmail() + " already Exists");
+			System.out.println(result);
 		}
 		else{
-			this.m_customerRepo.save(customer);
+			return this.m_customerRepo.save(customer);
+			
 		}
-		return result;
+		return null;
 	}
 	
-	public void updateCustomer(Customer customer){
-		this.m_customerRepo.save(customer);
+	public Customer updateCustomer(Customer customer){
+		return this.m_customerRepo.save(customer);
 	}
 	
 	public void deleteCustomer(int customerID){

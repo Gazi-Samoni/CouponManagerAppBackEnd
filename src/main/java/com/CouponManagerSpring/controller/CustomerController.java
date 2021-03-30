@@ -30,22 +30,22 @@ public class CustomerController {
 		this.customerServices = customerServices;
 	}
 	
-	@PostMapping("/login/{email}/{password}")
-	public ResponseEntity<String> login(@PathVariable("email")String email, @PathVariable("password")String password) {
+	@GetMapping("/login/{email}/{password}")
+	public ResponseEntity<Boolean> login(@PathVariable("email")String email, @PathVariable("password")String password) {
 		
 		if(customerServices.login(email, password))
-			return new ResponseEntity<>("login succeded",HttpStatus.OK);
+			return new ResponseEntity<>(true,HttpStatus.OK);
 		else	
-			return new ResponseEntity<>("login faild",HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(false,HttpStatus.BAD_REQUEST);
 	}
 	
 	@PostMapping("/purchaseCoupon")
-	public ResponseEntity<String> purchaseCoupon(@RequestBody Coupon coupon){
+	public ResponseEntity<?> purchaseCoupon(@RequestBody Coupon coupon){
 		String status = customerServices.purchaseCoupon(coupon);
 		if(status.equals("purchased"))
-			return new ResponseEntity<>(status,HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		else
-			return new ResponseEntity<>(status,HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			
 	}
 	

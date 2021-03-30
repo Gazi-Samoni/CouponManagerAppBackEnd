@@ -140,7 +140,7 @@ public class Coupon {
 	
 	@Column(name="companyId")
 	int companyId;
-	@Enumerated(EnumType.STRING)
+	//@Enumerated(EnumType.STRING)
 	@Column(name="CategoryId")
 	Category category;
 	@Column(name="TITLE")

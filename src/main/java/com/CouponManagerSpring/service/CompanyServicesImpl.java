@@ -25,13 +25,14 @@ public class CompanyServicesImpl extends ClientService{
 		}
 		return false;
 	}
-	public String addCoupon(Coupon coupon){
+	public Coupon addCoupon(Coupon coupon){
 		String result; 
 		if(coupon.getCompanyID() == m_companyID){
 			if(isCouponTitleExists(coupon)==false){
-				m_couponRepo.save(coupon);
+				
 				System.out.println("Coupon added :)");
 				result ="Coupon added";
+				return m_couponRepo.save(coupon);
 			}
 			else{
 				result = coupon.getTitle() + "`s title already exists";
@@ -42,7 +43,7 @@ public class CompanyServicesImpl extends ClientService{
 			result = coupon.getTitle() + " This coupon doesn`t belong to our company";
 			System.out.println(result);
 		}
-		return result;
+		return null;
 	}
 	
 	private boolean isCouponTitleExists(Coupon coupon){
@@ -58,7 +59,7 @@ public class CompanyServicesImpl extends ClientService{
 		return isExists;
 		
 	}
-	public String updateCoupon(Coupon coupon){
+	public Coupon updateCoupon(Coupon coupon){
 		String result; 
 		if(coupon.getCompanyID() != this.m_companyID){
 			result = "Can't edit Company id";
@@ -69,11 +70,11 @@ public class CompanyServicesImpl extends ClientService{
 			System.out.println(result);
 		}
 		else{
-			m_couponRepo.save(coupon);
 			result = "coupon updated";
 			System.out.println(result);
+			return m_couponRepo.save(coupon);
 		}
-		return result;
+		return null;
 	}
 	
 	public String deleteCoupon(int couponID){
@@ -109,7 +110,6 @@ public class CompanyServicesImpl extends ClientService{
 	}
 	
 	
-	// i fixed here (Casting)
 	public ArrayList<Coupon> getCompanyCoupons(){
 		return new ArrayList<Coupon>(m_couponRepo.findAllByCompanyId(this.m_companyID));
 	}

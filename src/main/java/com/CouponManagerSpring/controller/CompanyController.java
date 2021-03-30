@@ -24,38 +24,38 @@ public class CompanyController {
 		this.companyServices = companyServices;
 	}
 	
-	@PostMapping("/login/{email}/{password}")
-	public ResponseEntity<String> login(@PathVariable("email")String email, @PathVariable("password")String password) {
+	@GetMapping("/login/{email}/{password}")
+	public ResponseEntity<Boolean> login(@PathVariable("email")String email, @PathVariable("password")String password) {
 		
 		if(companyServices.login(email, password)){
-			return new ResponseEntity<>("login succeded",HttpStatus.OK);
+			return new ResponseEntity<>(true,HttpStatus.OK);
 		}
 		else	
-			return new ResponseEntity<>("login faild",HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(false,HttpStatus.BAD_REQUEST);
 	}
 	
 	@PostMapping("/coupon/add")
-	public  ResponseEntity<String> addCoupon(@RequestBody Coupon coupon){
-		String status = companyServices.addCoupon(coupon);
-		if(status.equals("Coupon added"))
-			return new ResponseEntity<>(status,HttpStatus.CREATED);
+	public  ResponseEntity<Coupon> addCoupon(@RequestBody Coupon coupon){
+		Coupon NewCoupon = companyServices.addCoupon(coupon);
+		if(NewCoupon != null)
+			return new ResponseEntity<>(NewCoupon,HttpStatus.CREATED);
 		else
-			return new ResponseEntity<>(status,HttpStatus.IM_USED);
+			return new ResponseEntity<>(NewCoupon,HttpStatus.IM_USED);
 	}
 	
-	@PostMapping("/coupon/update")
-	public  ResponseEntity<String> updateCoupon(@RequestBody Coupon coupon){
-		String status = companyServices.addCoupon(coupon);
-		if(status.equals("coupon updated"))
-			return new ResponseEntity<>(status,HttpStatus.OK);	
+	@PutMapping("/coupon/update")
+	public  ResponseEntity<Coupon> updateCoupon(@RequestBody Coupon coupon){
+		Coupon NewCoupon = companyServices.addCoupon(coupon);
+		if(NewCoupon != null)
+			return new ResponseEntity<>(NewCoupon,HttpStatus.OK);	
 		else
-			return new ResponseEntity<>(status,HttpStatus.BAD_REQUEST);	
+			return new ResponseEntity<>(NewCoupon,HttpStatus.BAD_REQUEST);	
 	}
 
 	@DeleteMapping("/coupon/delete/{id}")
 	public  ResponseEntity<?> deleteCoupon(@PathVariable("id")int couponID){
 		String status =companyServices.deleteCoupon(couponID);
-		if(status.contains("delete"))
+		if(status.contains("removed"))
 			return new ResponseEntity<>(HttpStatus.OK);	
 		else
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);	

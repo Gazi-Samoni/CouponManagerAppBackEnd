@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,29 +30,31 @@ public class AdminstratorController {
 	}
 	
 	@GetMapping("/login/{email}/{password}")
-	public ResponseEntity<String> login(@PathVariable("email")String email, @PathVariable("password")String password) {
+	public ResponseEntity<Boolean> login(@PathVariable("email")String email, @PathVariable("password")String password) {
 		if(adminService.login(email, password))
-			return new ResponseEntity<>("login succeded",HttpStatus.OK);
+			return new ResponseEntity<>(true,HttpStatus.OK);
+		
 		else	
-			return new ResponseEntity<>("login faild",HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(false,HttpStatus.BAD_REQUEST);
+			
 	}
 	
 	@PostMapping("/company/add")
-	public ResponseEntity<String> addCompany(@RequestBody Company company){
-		String status = adminService.addCompany(company);
-		if(status.equals("Comany added"))
-			return new ResponseEntity<>(status,HttpStatus.CREATED);
+	public ResponseEntity<Company> addCompany(@RequestBody Company company){
+		Company NewCompany = adminService.addCompany(company);
+		if(NewCompany != null)
+			return new ResponseEntity<>(NewCompany,HttpStatus.CREATED);
 		else	
-			return new ResponseEntity<>(status,HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(NewCompany,HttpStatus.BAD_REQUEST);
 	}
 	
-	@PostMapping("/company/update")
-	public ResponseEntity<String> updateCompany(@RequestBody Company company){
-		String status = adminService.updateCompany(company);
-		if(status.equals("Comany Updated"))
-			return new ResponseEntity<>(status,HttpStatus.OK);
+	@PutMapping("/company/update")
+	public ResponseEntity<Company> updateCompany(@RequestBody Company company){
+		Company NewCompany = adminService.updateCompany(company);
+		if(NewCompany != null)
+			return new ResponseEntity<>(NewCompany,HttpStatus.OK);
 		else	
-			return new ResponseEntity<>(status,HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(NewCompany,HttpStatus.BAD_REQUEST);
 	}
 	
 	@DeleteMapping("/company/delete/{companyId}")
@@ -69,24 +72,23 @@ public class AdminstratorController {
 	public ResponseEntity<Company> getOneCompany(@PathVariable("companyId") int companyId){
 		Company company = adminService.getOneCompany(companyId);
 		if(company != null)
-			return new ResponseEntity<>(company,HttpStatus.OK); 
-		
+			return new ResponseEntity<>(company,HttpStatus.OK); 	
 		else
 			return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
 	}
 	
 	@PostMapping("/customer/add")
-	public ResponseEntity<String> addCustomer(@RequestBody Customer customer){
-		String status = adminService.addCustomer(customer);
-		if(status.equals("Customer added")) {
+	public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer){
+		Customer newCustomer = adminService.addCustomer(customer);
+		if(newCustomer != null) {
 			System.out.println("going to add \n" +customer.toString() );
-			return new ResponseEntity<>(status,HttpStatus.CREATED);
+			return new ResponseEntity<>(newCustomer,HttpStatus.CREATED);
 		}
 		else	
-			return new ResponseEntity<>(status,HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(newCustomer,HttpStatus.BAD_REQUEST);
 	}
 	
-	@PostMapping("/customer/update")
+	@PutMapping("/customer/update")
 	public ResponseEntity<?> updateCustomer(@RequestBody Customer customer){
 		adminService.updateCustomer(customer);
 		return new ResponseEntity<>(HttpStatus.OK);
