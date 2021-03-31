@@ -2,6 +2,7 @@ package com.CouponManagerSpring.service;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -139,4 +140,21 @@ public class CustomerServicesImpl extends ClientService{
 	
 	public int getId() { return m_customerID; }
 
+	public ArrayList<Coupon> getAllCoupons() {
+		return (ArrayList<Coupon>) m_couponRepo.findAll();
+	}
+
+	public ArrayList<Coupon> getAllCoupons(double maxPrice) {
+		ArrayList<Coupon> coupons = this.getAllCoupons();
+		
+		for(int i = 0; i <coupons.size(); i++)
+		{
+			if(coupons.get(i).getPrice() > maxPrice)
+			{
+				coupons.remove(i);
+			}
+		}
+		
+		return coupons;
+	}
 }

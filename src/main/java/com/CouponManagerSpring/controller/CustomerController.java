@@ -82,4 +82,21 @@ public class CustomerController {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 	}
 	
+	@GetMapping("/coupon/getAll")
+	public ResponseEntity<ArrayList<Coupon>> getAllCoupons() {
+		ArrayList<Coupon> coupons = new ArrayList<Coupon>(customerServices.getAllCoupons());
+		if(coupons!= null)
+			return new ResponseEntity<>(coupons, HttpStatus.OK);
+		else
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+	}
+	
+	@GetMapping("/coupon/getAll/price/{price}")
+	public ResponseEntity<ArrayList<Coupon>> getAllCouponsByMaxPrice(@PathVariable("price")double maxPrice){
+		ArrayList<Coupon> coupons = new ArrayList<Coupon>(customerServices.getAllCoupons(maxPrice));
+		return new ResponseEntity<>(coupons, HttpStatus.OK);
+	}
+	
+
+	
 }

@@ -45,7 +45,7 @@ public class CompanyController {
 	
 	@PutMapping("/coupon/update")
 	public  ResponseEntity<Coupon> updateCoupon(@RequestBody Coupon coupon){
-		Coupon NewCoupon = companyServices.addCoupon(coupon);
+		Coupon NewCoupon = companyServices.updateCoupon(coupon);
 		if(NewCoupon != null)
 			return new ResponseEntity<>(NewCoupon,HttpStatus.OK);	
 		else
