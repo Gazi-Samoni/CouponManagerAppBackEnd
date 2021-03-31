@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.CouponManagerSpring.dao.Company;
-import com.CouponManagerSpring.dao.Coupon;
 import com.CouponManagerSpring.dao.Customer;
 import com.CouponManagerSpring.service.AdminServicesImpl;
 

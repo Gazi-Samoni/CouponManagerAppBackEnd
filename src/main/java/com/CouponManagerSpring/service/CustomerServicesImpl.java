@@ -1,8 +1,6 @@
 package com.CouponManagerSpring.service;
 
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -101,11 +99,10 @@ public class CustomerServicesImpl extends ClientService{
 			if(coupons.get(i).getCategory() != category)
 			{
 				coupons.remove(i);
+				i--;
 			}
 		}
-		
 		return coupons;
-		
 	}
 	public ArrayList<Coupon> getCustomerCoupons(double maxPrice){
 		ArrayList<Coupon> coupons = getCustomerCoupons();
@@ -114,6 +111,7 @@ public class CustomerServicesImpl extends ClientService{
 			if(coupons.get(i).getPrice() > maxPrice)
 			{
 				coupons.remove(i);
+				i--;
 			}
 		}
 		return coupons;
@@ -152,6 +150,22 @@ public class CustomerServicesImpl extends ClientService{
 			if(coupons.get(i).getPrice() > maxPrice)
 			{
 				coupons.remove(i);
+				i--;
+			}
+		}
+		
+		return coupons;
+	}
+
+	public ArrayList<Coupon> getAllCoupons(Category category) {
+		ArrayList<Coupon> coupons = this.getAllCoupons();
+		
+		for(int i = 0; i <coupons.size(); i++)
+		{
+			if(coupons.get(i).getCategory() !=  category)
+			{
+				coupons.remove(i);
+				i--;
 			}
 		}
 		

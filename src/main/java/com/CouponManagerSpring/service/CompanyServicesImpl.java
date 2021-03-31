@@ -45,6 +45,10 @@ public class CompanyServicesImpl extends ClientService{
 		}
 		return null;
 	}
+	//use only for test -> no access from gui
+	public Coupon addCouponForTest(Coupon coupon){		
+		return m_couponRepo.save(coupon);
+	}
 	
 	private boolean isCouponTitleExists(Coupon coupon){
 		ArrayList<Coupon> coupons = new ArrayList<>(getCompanyCoupons());
@@ -81,7 +85,6 @@ public class CompanyServicesImpl extends ClientService{
 		String result="";
 		ArrayList<CustomersVsCoupons> customerVsCouponTable = (ArrayList<CustomersVsCoupons>)m_customersVScouponsRepo.findByCouponId(couponID);
 		
-		
 		for(int i = 0; i < customerVsCouponTable.size(); i++)
 		{
 			int currCouponID = customerVsCouponTable.get(i).getCoupounID();
@@ -96,13 +99,15 @@ public class CompanyServicesImpl extends ClientService{
 		for(int i= 0; i< coupons.size();i++)
 		{
 			//need to add validation
-			if(coupons.get(i).getCompanyID() == this.getCompanyID())
+			if(coupons.get(i).getCompanyID() == this.getCompanyID()) {
 				if(coupons.get(i).getID() == couponID)
 				{
 					coupons.remove(i);
 					result = "coupon : "+ couponID +" removed";
 					System.out.println(result);
 				}
+			}
+			
 		}
 		
 		m_couponRepo.deleteById(couponID);

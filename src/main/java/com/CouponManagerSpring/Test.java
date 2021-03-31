@@ -1,7 +1,6 @@
 package com.CouponManagerSpring;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -44,7 +43,7 @@ public class Test implements CommandLineRunner{
 		CustomerUserTest(customerFacade);	
 	}
 			
-		 void administratorUserTest(AdminServicesImpl adminFacade){
+	void administratorUserTest(AdminServicesImpl adminFacade){
 			System.out.println("\n\n\n");
 			System.out.println("------------------Administrator Test------------------");
 			
@@ -55,9 +54,16 @@ public class Test implements CommandLineRunner{
 			Company Amdocs = new Company("Amdocs","Amdocs@Amdocs.com","1234");
 			Company Intel = new Company("Intel","Intel@Intel.com","1234");
 			Company Microsoft = new Company("Microsoft","Microsoft@Microsoft.com","1234");
+			Company Checkpoint = new Company("Checkpoint","Checkpoint@Checkpoint.com","1234");
+			Company Zerto = new Company("Zerto","Zerto@Zerto.com","1234");
+			Company Liveperson = new Company("Liveperson","Liveperson@Liveperson.com","1234");
+			
 			adminFacade.addCompany(Amdocs);
 			adminFacade.addCompany(Intel);
 			adminFacade.addCompany(Microsoft);	
+			adminFacade.addCompany(Checkpoint);	
+			adminFacade.addCompany(Zerto);	
+			adminFacade.addCompany(Liveperson);	
 			
 			
 			//to delete
@@ -72,6 +78,14 @@ public class Test implements CommandLineRunner{
 				System.out.println("Cannot find the company from the given email and password");
 				return;
 			}
+			
+			
+			Intel.setID(companyFacade.getCompanyIdByEmailAndPassword(Intel.getEmail(),Intel.getPassword()));
+			Microsoft.setID(companyFacade.getCompanyIdByEmailAndPassword(Microsoft.getEmail(),Microsoft.getPassword()));
+			Checkpoint.setID(companyFacade.getCompanyIdByEmailAndPassword(Checkpoint.getEmail(),Checkpoint.getPassword()));
+			Zerto.setID(companyFacade.getCompanyIdByEmailAndPassword(Zerto.getEmail(),Zerto.getPassword()));
+			Liveperson.setID(companyFacade.getCompanyIdByEmailAndPassword(Liveperson.getEmail(),Liveperson.getPassword()));
+			
 			
 			Amdocs.setID(id);
 
@@ -95,13 +109,25 @@ public class Test implements CommandLineRunner{
 			Microsoft.setID(id);
 			
 			/////////////////////////////////////////////////////
-			//"https://image.shutterstock.com/z/stock-vector-food-coupon-grunge-rubber-stamp-on-white-vector-illustration-180113531.jpg"
-			Coupon coupon = new Coupon(Amdocs.getID(),Category.Electricity,"coupon1","test1",date,date,5,3.6,"temp");
-			Coupon coupon2 = new Coupon(Amdocs.getID(),Category.Food,"coupon2","test31",date,date,5,3.6,"temp");
-			Coupon coupon3 = new Coupon(Amdocs.getID(),Category.Restaurant,"coupon3","test1",date,date,5,3.6,"temp");
-			companyFacade.addCoupon(coupon);
-			companyFacade.addCoupon(coupon2);
-			companyFacade.addCoupon(coupon3);
+			//"https://image.shutterstock.com/z/stock-vector-food-coupon-grunge-rubber-stamp-on-white-vector-illustration-180113531.jpg"    //Food img
+			Coupon coupon = new Coupon(Amdocs.getID(),Category.Electricity,"coupon1","test1",date,date,5,3.6,"https://image.shutterstock.com/z/stock-vector-food-coupon-grunge-rubber-stamp-on-white-vector-illustration-180113531.jpg");
+			Coupon coupon2 = new Coupon(Amdocs.getID(),Category.Food,"coupon2","test31",date,date,5,3.6,"https://image.shutterstock.com/z/stock-vector-food-coupon-grunge-rubber-stamp-on-white-vector-illustration-180113531.jpg");
+			Coupon coupon3 = new Coupon(Amdocs.getID(),Category.Restaurant,"Pasta","test1",date,date,5,3.6,"temp");
+			Coupon coupon4 = new Coupon(Zerto.getID(),Category.Restaurant,"Fish","test1",date,date,5,3.6,"temp");
+			Coupon coupon5 = new Coupon(Liveperson.getID(),Category.Restaurant,"Soop","test1",date,date,5,3.6,"temp");
+			Coupon coupon6 = new Coupon(Microsoft.getID(),Category.Food,"Pasta","test1",date,date,5,3.6,"https://image.shutterstock.com/z/stock-vector-food-coupon-grunge-rubber-stamp-on-white-vector-illustration-180113531.jpg");
+			Coupon coupon7 = new Coupon(Checkpoint.getID(),Category.Restaurant,"coupon3","test1",date,date,5,3.6,"temp");
+			Coupon coupon8 = new Coupon(Checkpoint.getID(),Category.Food,"coupon3","test1",date,date,5,3.6,"https://image.shutterstock.com/z/stock-vector-food-coupon-grunge-rubber-stamp-on-white-vector-illustration-180113531.jpg");
+			
+			companyFacade.addCouponForTest(coupon);
+			companyFacade.addCouponForTest(coupon2);
+			companyFacade.addCouponForTest(coupon3);
+			companyFacade.addCouponForTest(coupon4);
+			companyFacade.addCouponForTest(coupon5);
+			companyFacade.addCouponForTest(coupon6);
+			companyFacade.addCouponForTest(coupon7);
+			companyFacade.addCouponForTest(coupon8);
+			
 			
 			//Failure test 
 				//exists name
@@ -182,7 +208,7 @@ public class Test implements CommandLineRunner{
 			
 		}
 		
-		 void companyUserTest(CompanyServicesImpl companyFacade ){	
+	void companyUserTest(CompanyServicesImpl companyFacade ){	
 			System.out.println("\n\n\n");
 			System.out.println("------------------Company Test------------------");
 
