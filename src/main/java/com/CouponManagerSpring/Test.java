@@ -110,14 +110,14 @@ public class Test implements CommandLineRunner{
 			
 			/////////////////////////////////////////////////////
 			//"https://image.shutterstock.com/z/stock-vector-food-coupon-grunge-rubber-stamp-on-white-vector-illustration-180113531.jpg"    //Food img
-			Coupon coupon = new Coupon(Amdocs.getID(),Category.Electricity,"coupon1","test1",date,date,5,3.6,"https://image.shutterstock.com/z/stock-vector-food-coupon-grunge-rubber-stamp-on-white-vector-illustration-180113531.jpg");
-			Coupon coupon2 = new Coupon(Amdocs.getID(),Category.Food,"coupon2","test31",date,date,5,3.6,"https://image.shutterstock.com/z/stock-vector-food-coupon-grunge-rubber-stamp-on-white-vector-illustration-180113531.jpg");
-			Coupon coupon3 = new Coupon(Amdocs.getID(),Category.Restaurant,"Pasta","test1",date,date,5,3.6,"temp");
-			Coupon coupon4 = new Coupon(Zerto.getID(),Category.Restaurant,"Fish","test1",date,date,5,3.6,"temp");
-			Coupon coupon5 = new Coupon(Liveperson.getID(),Category.Restaurant,"Soop","test1",date,date,5,3.6,"temp");
-			Coupon coupon6 = new Coupon(Microsoft.getID(),Category.Food,"Pasta","test1",date,date,5,3.6,"https://image.shutterstock.com/z/stock-vector-food-coupon-grunge-rubber-stamp-on-white-vector-illustration-180113531.jpg");
-			Coupon coupon7 = new Coupon(Checkpoint.getID(),Category.Restaurant,"coupon3","test1",date,date,5,3.6,"temp");
-			Coupon coupon8 = new Coupon(Checkpoint.getID(),Category.Food,"coupon3","test1",date,date,5,3.6,"https://image.shutterstock.com/z/stock-vector-food-coupon-grunge-rubber-stamp-on-white-vector-illustration-180113531.jpg");
+			Coupon coupon = new Coupon(Amdocs.getID(),Category.Electricity,"Fan","10% Discount",date,date,5,3.6,"https://images-na.ssl-images-amazon.com/images/I/71pMktGGyRL._AC_SX466_.jpg");
+			Coupon coupon2 = new Coupon(Amdocs.getID(),Category.Food,"Burger","7% Discount",date,date,5,3.6,"https://taste.co.za/wp-content/uploads/2018/08/Double-beef-burger.png");
+			Coupon coupon3 = new Coupon(Amdocs.getID(),Category.Restaurant,"Pasta","Free Drink",date,date,5,3.6,"https://www.chelseasmessyapron.com/wp-content/uploads/2014/02/Red-and-White-Pasta-3.jpg");
+			Coupon coupon4 = new Coupon(Zerto.getID(),Category.Restaurant,"Fish","Free Chips",date,date,5,3.6,"https://i.pinimg.com/originals/06/33/1a/06331aa2e07ca09d0ced090c22f51f64.jpg");
+			Coupon coupon5 = new Coupon(Liveperson.getID(),Category.Restaurant,"Soop","Free Desert",date,date,5,3.6,"https://blog.pamperedchef.com/wp-content/uploads/2016/06/featured-soup.jpg");
+			Coupon coupon6 = new Coupon(Microsoft.getID(),Category.Food,"Chicken","4% Discount",date,date,5,3.6,"https://www.dinneratthezoo.com/wp-content/uploads/2019/06/fried-chicken-wings-5.jpg");
+			Coupon coupon7 = new Coupon(Checkpoint.getID(),Category.Restaurant,"SeaFood","7% Discount",date,date,5,3.6,"https://static.toiimg.com/thumb/47704347.cms?resizemode=75&width=1200&height=900");
+			Coupon coupon8 = new Coupon(Checkpoint.getID(),Category.Food,"ShuperSal","Voucher",date,date,5,3.6,"https://res-5.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco/b532b4a95c9fbc4f0479");
 			
 			companyFacade.addCouponForTest(coupon);
 			companyFacade.addCouponForTest(coupon2);
