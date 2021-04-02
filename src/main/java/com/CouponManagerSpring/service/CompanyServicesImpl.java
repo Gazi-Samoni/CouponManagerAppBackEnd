@@ -30,7 +30,7 @@ public class CompanyServicesImpl extends ClientService{
 		if(coupon.getCompanyID() == m_companyID){
 			if(isCouponTitleExists(coupon)==false){
 				
-				System.out.println("Coupon added :)");
+				System.out.println("Coupon added :)" + coupon.getTitle());
 				result ="Coupon added";
 				return m_couponRepo.save(coupon);
 			}
@@ -45,10 +45,7 @@ public class CompanyServicesImpl extends ClientService{
 		}
 		return null;
 	}
-	//use only for test -> no access from gui
-	public Coupon addCouponForTest(Coupon coupon){		
-		return m_couponRepo.save(coupon);
-	}
+	
 	
 	private boolean isCouponTitleExists(Coupon coupon){
 		ArrayList<Coupon> coupons = new ArrayList<>(getCompanyCoupons());
@@ -120,6 +117,7 @@ public class CompanyServicesImpl extends ClientService{
 	}
 	
 	
+	
 	public ArrayList<Coupon> getCompanyCoupons(Category category){
 		ArrayList<Coupon> tempCoupons = getCompanyCoupons();
 		ArrayList<Coupon> coupons = new ArrayList<Coupon>();
@@ -168,4 +166,42 @@ public class CompanyServicesImpl extends ClientService{
 		}
 		
 	}
+	
+	
+	/////  functions for test only 
+	
+	//use only for test -> no access from gui
+	public Coupon addCouponForTest(Coupon coupon){		
+		String result; 
+
+		if(isCouponTitleExistsForTest(coupon)==false){
+			
+			System.out.println("test Coupon added :) (test)" + coupon.getTitle());
+			result ="Coupon added";
+			return m_couponRepo.save(coupon);
+		}
+		else{
+			result = coupon.getTitle() + "`s title already exists (test)";
+			System.out.println(result);
+		}
+
+		return null;
+	}
+	private boolean isCouponTitleExistsForTest(Coupon coupon){
+		ArrayList<Coupon> coupons = new ArrayList<>(getCompanyCoupons(coupon.getCompanyID()));
+		boolean isExists= false;
+		for(Coupon var:coupons)
+		{
+			if(var.getTitle().equals(coupon.getTitle()))
+			{
+				isExists=true;
+			}
+		}
+		return isExists;
+		
+	}
+	private ArrayList<Coupon> getCompanyCoupons(int companyId){
+		return new ArrayList<Coupon>(m_couponRepo.findAllByCompanyId(companyId));
+	}
+	
 }
