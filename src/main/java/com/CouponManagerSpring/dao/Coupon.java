@@ -11,6 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="COUPONS")
@@ -129,8 +133,8 @@ public class Coupon {
 	
 	@Override
 	public String toString() {
-		return "Coupon [id=" + id + ", companyID=" + companyId + ", category=" + category + ", title=" + title
-				+ ", description=" + description + ", amount=" + amount + ", price=" + price + ", image=" + image + "]";
+		return "Coupon [id=" + this.id + ", companyID=" + this.companyId + ", category=" + this.category + ", title=" + this.title
+				+ ", description=" + this.description + ", amount=" + this.amount + ", stratDate="+this.startDate + ", endDate="+this.endDate+ ", price=" + this.price + ", image=" + this.image + "]";
 	}
 
 	@Id
@@ -147,8 +151,12 @@ public class Coupon {
 	String title;
 	@Column(name="Description")
 	String description;
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name="StartDate")
 	Date startDate;
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name="EndDate")
 	Date endDate;
 	@Column(name="Amount")
